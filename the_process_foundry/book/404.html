@@ -3,10 +3,10 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>The Process Foundry</title>
+        <title></title>
         
-        <meta name="robots" content="noindex" />
         
+        <base href="/">
         
 
 
@@ -157,142 +157,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#the-process-foundry" id="the-process-foundry">The Process Foundry</a></h1>
-<p>Welcome to The Process Foundry (TPF), a business process model and notation (BPMN) based microservice
-framework.</p>
-<p>Be warned, like all frameworks it will suck. Read ahead to see if it can be made to suck less for you.</p>
-<p>The goal of this projects is to create a backbone to implement inter-process communications between disparate
-processes on so the developer can focus on their code rather than digging into every niggling decision that
-goes into a microservice.</p>
-<p>It is designed to be composable, but with sane defaults that the dev will never even know about unless
-they go looking.</p>
-<h2><a class="header" href="#ideas-to-mull-over" id="ideas-to-mull-over">Ideas to mull over</a></h2>
-<p>THINK: Is it worth creating a book preprocessor to scan the code for ToDo listing to include RFC/ToDos with
-links to project management in the book?
-THINK: Does Github's project management offer enough to use (even temporarily?)</p>
-<h2><a class="header" href="#todo" id="todo">ToDo</a></h2>
-<ul>
-<li>Add project management tool to contain bugs/feature requests</li>
-<li>CODE REVIEW for documentation</li>
-<li>Refactor into multiple projects and squash into a proper initial commit</li>
-<li>Design workflows
-<ul>
-<li>Review Luigi/Airflow docs for ideas</li>
-</ul>
-</li>
-<li>Implement watcher.sh as TPF workflow (dog-fooding)
-<ul>
-<li>Create iNotify Application</li>
-<li>Emit file touched event</li>
-<li>Does workflow actually do anything after triggering, or does it just configure pub/sub and disappear?</li>
-<li>Review choreography vs orchestration</li>
-</ul>
-</li>
-<li>Add ELK stack as a system in order to enable logging</li>
-<li>Create TPF GUI
-<ul>
-<li>Research compiling WebAssembly container/cache and wrapping it in JavaScript</li>
-<li>Is Kibana useful here, since it claims to be a dashboard/insight manager?</li>
-</ul>
-</li>
-</ul>
-<h1><a class="header" href="#core" id="core">Core</a></h1>
-<p>This is the bare minimum needed to run the process foundry. It consists of the action/event aggregator,
-message bus, and shell containers. Most everything else is optional or considered a tool that can
-be used everywhere.</p>
-<p>TODO: Add list, links and blurbs to the architecture.</p>
-<h1><a class="header" href="#architecture" id="architecture">Architecture</a></h1>
-<p>This is the top level design of The Process Foundry. Read the sub-headings to learn more about the individual
-components.</p>
-<h1><a class="header" href="#application" id="application">Application</a></h1>
-<p>An application is an interface which defines a set of functions to convert TPF actions into native commands,
-monitor state, and sends out messages describing any changes in state.</p>
-<p>At its core, an application is something that executes actions and emits events. It has no context of anything
-outside the scope of its functionality. It can be accessed by one or more containers, depending on the
-context.</p>
-<p>TODO: Add component/function design png</p>
-<h1><a class="header" href="#container" id="container">Container</a></h1>
-<p>A container is an introspective object that holds a set of applications and other containers (hooray for
-recursive definitions). It is used to organize its children and route events/actions to the next step
-in both directions, up to the message bus/router, and down to the &quot;bare metal&quot;. This is what will enable
-app discovery.</p>
-<p>TODO: Add PNG of docker-compose example or should this wait until workflows?:</p>
-<ul>
-<li>docker-compose -&gt; docker-container -&gt; shell -&gt; pg_basebackup</li>
-<li>iNotify -&gt; docker-compose -&gt; docker-container -&gt; shell</li>
-</ul>
-<h1><a class="header" href="#workflow" id="workflow">Workflow</a></h1>
-<p>Status: Thinking through</p>
-<p>A workflow is a set of actions to run based on a specific change in state. It should be choreography rather
-than orchestration. The bulk of this is going to be to adding routing to make sure events get to the next
-proper step. It should be started with a single trigger and using routing to follow to subsequent events instead
-of having a process listener waiting for result before sending the next step. I'm not sure this is possible,
-but I'm damn well going to try.</p>
-<p>TODO: Examine Luigi/Airflow for how they do things
-TODO: Workflow design doc
-TODO: Workflow example</p>
-<h1><a class="header" href="#data-flow" id="data-flow">Data Flow</a></h1>
-<p>The dataflow in this system is designed to be unidirectional. An action will will generate an ack event with
-the message id. Results are pushed onto the router as multiple applications may care about the result even
-though, only a single action was triggered. This simplifies handling state changes and maintaining a cache.</p>
-<p>Web pages should also be treated as an equal container, receiving events and updates for realtime data syncing.
-The idea is to compile a WebAssembly module and wrap it in JS so web users will be treated as equal to onsite
-containers/applications. This hopefully keep the codebase with bug fixes up to date without having to manage
-multiple programming languages.</p>
-<p>I'm basing this off the idea of <a href="https://facebook.github.io/flux/docs/in-depth-overview/">Flux</a></p>
-<p>TODO: Add example data flow for the watcher/rebuilder workflow</p>
-<h1><a class="header" href="#api" id="api">API</a></h1>
-<p>Since this is a microservice framework, the bus will be exposed and secured by OAuth2 and have a queryable
-JSON schema for all available functions. The goal is to have 3rd party apps able to act as first class
-citizens.</p>
-<h1><a class="header" href="#gui" id="gui">GUI</a></h1>
-<p>status: Concept/ToDo</p>
-<p>THINK: Kibana as a base for insight?</p>
-<p>This is going to be able to give insight/management into all the systems known by TPF. First get the
-core backbone running before even considering what we would want to see.</p>
-<p>TODO: Workflow management (editing, running)
-TODO: Role/ACL management</p>
-<h1><a class="header" href="#tools" id="tools">Tools</a></h1>
-<h1><a class="header" href="#applications" id="applications">Applications</a></h1>
-<p>The <a href="apps/../core/application.html">application</a> is an interface used for wrapping externally code. Here are some
-examples and how they are used.</p>
-<p>TODO: Core::Shell (Bash, Zsh, Dash)
-TODO: Add QuickBooks API interface</p>
-<h1><a class="header" href="#systems" id="systems">Systems</a></h1>
-<p>This is a set of applications that are run together to perform a particular function. These are
-going to be predefined configurations for quick and easy deployment and management. In addition, they should
-add on pre-designed workflows for common usages.</p>
-<h1><a class="header" href="#elk-stack" id="elk-stack">ELK Stack</a></h1>
-<p>That's Elasticsearch, Kibana, Beats, and Logstash (also known as the ELK Stack). Reliably and securely take data from any source, in any format, then search, analyze, and visualize it in real time.</p>
-<p>This is going to be the default lagging mechanism for The Process Foundry, so I'm including it as since we
-can install the whole thing in a Docker Compose/MiniKube instance.</p>
-<p>To see more about it: <a href="https://www.elastic.co/elastic-stack">Elastic Stack</a></p>
-<h1><a class="header" href="#taiga" id="taiga">Taiga</a></h1>
-<h1><a class="header" href="#fishhead-labs" id="fishhead-labs">Fishhead Labs</a></h1>
-<p>My old company, still running under my sister. It is a full service veterinary pathology consulting firm. The
-company's internal management website is built upon TPF (such as it is).</p>
-<h1><a class="header" href="#workflows" id="workflows">Workflows</a></h1>
-<h1><a class="header" href="#continuous-backup" id="continuous-backup">Continuous Backup</a></h1>
-<h1><a class="header" href="#rebuilder" id="rebuilder">Rebuilder</a></h1>
-<h1><a class="header" href="#invoicing" id="invoicing">Invoicing</a></h1>
-<h1><a class="header" href="#glossary" id="glossary">Glossary</a></h1>
-<ul>
-<li><strong>Container</strong></li>
-<li><strong>Application</strong></li>
-<li><strong>RBAC (Role Based Access Control)</strong></li>
-<li><strong>ACL (Access Control List)</strong></li>
-<li><strong>Encryption</strong></li>
-<li><strong>Message Queue</strong></li>
-<li><strong>Factory</strong></li>
-<li><strong>OAuth2</strong></li>
-<li><strong>ELK Stack</strong></li>
-<li><strong>Registry</strong></li>
-<li><strong>Router</strong></li>
-<li><strong>Wrapi</strong></li>
-<li><strong>Long Poller</strong></li>
-<li><strong>System</strong> This is a set of applications that are run together to perform a particular function. A good example is the
-<a href="./systems/ELK.html">ELK Stack</a>.</li>
-</ul>
+                        <h1><a class="header" href="#document-not-found-404" id="document-not-found-404">Document not found (404)</a></h1>
+<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
 
                     </main>
 
@@ -315,21 +181,6 @@ company's internal management website is built upon TPF (such as it is).</p>
 
         </div>
 
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3000/__livereload");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         
 
         
@@ -357,14 +208,6 @@ company's internal management website is built upon TPF (such as it is).</p>
         <!-- Custom JS scripts -->
         
 
-        
-        
-        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-        
         
 
     </body>

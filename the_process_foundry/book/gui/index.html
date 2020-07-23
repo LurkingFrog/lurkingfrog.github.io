@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Data Flow - The Process Foundry</title>
+        <title>GUI - The Process Foundry</title>
         
         
 
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../core/index.html"><strong aria-hidden="true">2.</strong> Core</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core/architecture.html"><strong aria-hidden="true">2.1.</strong> Architecture</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../core/application.html"><strong aria-hidden="true">2.1.1.</strong> Application</a></li><li class="chapter-item "><a href="../core/container.html"><strong aria-hidden="true">2.1.2.</strong> Container</a></li><li class="chapter-item "><a href="../core/workflow.html"><strong aria-hidden="true">2.1.3.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../core/flux.html" class="active"><strong aria-hidden="true">2.1.4.</strong> Data Flow</a></li></ol></li><li class="chapter-item "><a href="../core/api.html"><strong aria-hidden="true">2.2.</strong> API</a></li></ol></li><li class="chapter-item "><a href="../gui/index.html"><strong aria-hidden="true">3.</strong> GUI</a></li><li class="chapter-item "><a href="../tools/index.html"><strong aria-hidden="true">4.</strong> Tools</a></li><li class="chapter-item "><a href="../apps/index.html"><strong aria-hidden="true">5.</strong> Applications</a></li><li class="chapter-item "><a href="../systems/index.html"><strong aria-hidden="true">6.</strong> Systems</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../systems/ELK.html"><strong aria-hidden="true">6.1.</strong> ELK Stack</a></li><li class="chapter-item "><a href="../systems/Taiga.html"><strong aria-hidden="true">6.2.</strong> Taiga</a></li><li class="chapter-item "><a href="../systems/FishheadLabs.html"><strong aria-hidden="true">6.3.</strong> Fishhead Labs</a></li></ol></li><li class="chapter-item "><a href="../workflow/index.html"><strong aria-hidden="true">7.</strong> Workflows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../workflow/pg_basebackup.html"><strong aria-hidden="true">7.1.</strong> Continuous Backup</a></li><li class="chapter-item "><a href="../workflow/rebuilder.html"><strong aria-hidden="true">7.2.</strong> Rebuilder</a></li><li class="chapter-item "><a href="../workflow/invoicing.html"><strong aria-hidden="true">7.3.</strong> Invoicing</a></li></ol></li><li class="chapter-item "><a href="../glossary.html"><strong aria-hidden="true">8.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="../core/index.html"><strong aria-hidden="true">2.</strong> Core</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../core/architecture.html"><strong aria-hidden="true">2.1.</strong> Architecture</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../core/application.html"><strong aria-hidden="true">2.1.1.</strong> Application</a></li><li class="chapter-item "><a href="../core/container.html"><strong aria-hidden="true">2.1.2.</strong> Container</a></li><li class="chapter-item "><a href="../core/workflow.html"><strong aria-hidden="true">2.1.3.</strong> Workflow</a></li><li class="chapter-item "><a href="../core/flux.html"><strong aria-hidden="true">2.1.4.</strong> Data Flow</a></li></ol></li><li class="chapter-item "><a href="../core/api.html"><strong aria-hidden="true">2.2.</strong> API</a></li></ol></li><li class="chapter-item expanded "><a href="../gui/index.html" class="active"><strong aria-hidden="true">3.</strong> GUI</a></li><li class="chapter-item "><a href="../tools/index.html"><strong aria-hidden="true">4.</strong> Tools</a></li><li class="chapter-item "><a href="../apps/index.html"><strong aria-hidden="true">5.</strong> Applications</a></li><li class="chapter-item "><a href="../systems/index.html"><strong aria-hidden="true">6.</strong> Systems</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../systems/ELK.html"><strong aria-hidden="true">6.1.</strong> ELK Stack</a></li><li class="chapter-item "><a href="../systems/Taiga.html"><strong aria-hidden="true">6.2.</strong> Taiga</a></li><li class="chapter-item "><a href="../systems/FishheadLabs.html"><strong aria-hidden="true">6.3.</strong> Fishhead Labs</a></li></ol></li><li class="chapter-item "><a href="../workflow/index.html"><strong aria-hidden="true">7.</strong> Workflows</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../workflow/pg_basebackup.html"><strong aria-hidden="true">7.1.</strong> Continuous Backup</a></li><li class="chapter-item "><a href="../workflow/rebuilder.html"><strong aria-hidden="true">7.2.</strong> Rebuilder</a></li><li class="chapter-item "><a href="../workflow/invoicing.html"><strong aria-hidden="true">7.3.</strong> Invoicing</a></li></ol></li><li class="chapter-item "><a href="../glossary.html"><strong aria-hidden="true">8.</strong> Glossary</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -155,29 +155,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#data-flow" id="data-flow">Data Flow</a></h1>
-<p>The dataflow in this system is designed to be unidirectional. An action will will generate an ack event with
-the message id. Results are pushed onto the router as multiple applications may care about the result even
-though, only a single action was triggered. This simplifies handling state changes and maintaining a cache.</p>
-<p>Web pages should also be treated as an equal container, receiving events and updates for realtime data syncing.
-The idea is to compile a WebAssembly module and wrap it in JS so web users will be treated as equal to onsite
-containers/applications. This hopefully keep the codebase with bug fixes up to date without having to manage
-multiple programming languages.</p>
-<p>I'm basing this off the idea of <a href="https://facebook.github.io/flux/docs/in-depth-overview/">Flux</a></p>
-<p>TODO: Add example data flow for the watcher/rebuilder workflow</p>
+                        <h1><a class="header" href="#gui" id="gui">GUI</a></h1>
+<p>status: Concept/ToDo</p>
+<p>THINK: Kibana as a base for insight?</p>
+<p>This is going to be able to give insight/management into all the systems known by TPF. First get the
+core backbone running before even considering what we would want to see.</p>
+<p>TODO: Workflow management (editing, running)
+TODO: Role/ACL management</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../core/workflow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../core/api.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../core/api.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../tools/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -189,13 +186,13 @@ multiple programming languages.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../core/workflow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../core/api.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../core/api.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../tools/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -203,21 +200,6 @@ multiple programming languages.</p>
 
         </div>
 
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3000/__livereload");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         
 
         
