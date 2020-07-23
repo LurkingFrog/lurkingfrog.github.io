@@ -329,14 +329,14 @@
   <span class="kw">fn</span> <span class="ident">set_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_instance</span>: <span class="ident">AppInstance</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">AppInstance</span><span class="op">&gt;</span> {
     <span class="macro">unimplemented</span><span class="macro">!</span>()
   }
-  <span class="doccomment">/// Figures out how to call the cli using the given container</span>
-  <span class="kw">fn</span> <span class="ident">set_cli</span>(
-    <span class="kw-2">&amp;</span><span class="self">self</span>,
-    <span class="ident">_instance</span>: <span class="ident">AppInstance</span>,
-    <span class="ident">_container</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ContainerTrait</span><span class="op">&gt;</span>,
-  ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">AppInstance</span><span class="op">&gt;</span> {
-    <span class="macro">unimplemented</span><span class="macro">!</span>()
-  }
+  <span class="comment">// /// Figures out how to call the cli using the given container</span>
+  <span class="comment">// fn set_cli(</span>
+  <span class="comment">//   &amp;self,</span>
+  <span class="comment">//   _instance: AppInstance,</span>
+  <span class="comment">//   _container: Rc&lt;dyn ContainerTrait&gt;,</span>
+  <span class="comment">// ) -&gt; Result&lt;AppInstance&gt; {</span>
+  <span class="comment">//   unimplemented!()</span>
+  <span class="comment">// }</span>
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
@@ -377,7 +377,7 @@
   <span class="ident">write_recovery_conf</span>: <span class="ident">bool</span>,
 
   <span class="doccomment">///  -T, --tablespace-mapping=OLDDIR=NEWDIR</span>
-  <span class="doccomment">///                         relocate tablespace in OLDDIR to NEWDIR</span>
+  <span class="doccomment">///                         relocate table-space in OLD-DIR to NEW-DIR</span>
   <span class="ident">tablespace_mapping</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
   <span class="doccomment">///      --waldir=WALDIR    location for the write-ahead log directory</span>
@@ -393,7 +393,7 @@
   <span class="ident">compression</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Compression</span><span class="op">&gt;</span>,
 
   <span class="comment">// General options:</span>
-  <span class="doccomment">///  -c, --checkpoint=fast|spread   set fast or spread checkpointing</span>
+  <span class="doccomment">///  -c, --checkpoint=fast|spread   set fast or spread check-pointing</span>
   <span class="ident">checkpoint</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Checkpoint</span><span class="op">&gt;</span>,
 
   <span class="doccomment">///  -C, --create-slot      create replication slot</span>

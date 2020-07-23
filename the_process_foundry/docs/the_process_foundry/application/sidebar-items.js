@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ApiAccess",""],["AppDescription","General information about the external application handled by this particular module"],["AppInstance","Information about the specific running copy of the external program"],["CliAccess",""]],"trait":[["AppTrait","A data structure containing information used to generate both generate Actions and Events"]]});
